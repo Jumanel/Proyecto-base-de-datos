@@ -2,35 +2,65 @@
 <html>
 <head>
 	<title>@yield('title')</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="stylesheet"  href="/css/app.css">
 	<script src="/js/app.js" defer></script>
 
 </head>
 <body>
-	<nav>
-		 <ul>
-		 	<li class="{{ setactive('Home') }}"><a href="{{ route('Home') }}">Home</a></li>
-		 	<li class="{{ setactive('about') }}"><a href="{{ route('about') }}">About</a></li>
-		 	<li class="{{ setactive('contact') }}"><a href="{{ route('contact') }}">Contac</a></li>
-		 	<li class="{{ setactive('projects.*') }}"><a href="{{ route('projects.index') }}">portafolio</a></li>
-		 	@guest
-		 		<li><a href="{{ route('login') }}"> Login </a></li>
-		 	@else
-		 		<li>
-		 			<a href="#" onclick="event.preventDefault();
-                	document.getElementById('logout-form').submit();">Cerrar sesion</a>
-            	</li>
-		 	@endguest
+	<div id="app" class="d-flex flex-column h-screen justify-content-between ">
 
+		<header>
+			<nav class="navbar navbar-light navbar-expand-lg bg-white shadow-sm">
+			<div class="container">
+			<a class="navbar-brand" href="{{ route('Home') }}">
+				{{ config('app.name') }}
+			</a>
 
-		 </ul>
-	 </nav>
-	 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-		@csrf
-	 </form>
+			<button class="navbar-toggler" type="button"
+			data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent"
+			aria-expanded="false"
+			aria-label="{{ __('Toggle navigation') }}">
+	        <span class="navbar-toggler-icon"></span>
+			</button>
 
-@include('partials.ss')
-@yield('content')
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				 <ul class="nav nav-pills">
+				 	<li class="nav-item">
+				 		<a class="nav-link {{ setactive('Home') }}" href="{{ route('Home') }}">Inicio
+				 		</a>
+				 	</li>
+				 	<li class="nav-item">
+				 		<a class="nav-link {{ setactive('about') }}" href="{{ route('about') }}">Mas
+				 		</a>
+				 	</li>
+				 	<li class="nav-item">
+				 		<a class="nav-link {{ setactive('contact') }}" href="{{ route('contact') }}">Contactame
+				 		</a>
+				 	</li>
+				 	<li class="nav-item">
+				 		<a class="nav-link {{ setactive('projects.*') }}" href="{{ route('projects.index') }}">Portafolio
+				 		</a>
+				 	</li>
+				 	
+				 </ul>
+			</div>
+			</nav>
+			
+			@include('partials.ss')
+		</header>
+
+		<main class="py-3">
+			@yield('content')
+		</main>
+
+		<footer class="bg-white text-black-50 text-center py-3 shadow">
+			{{ config('app.name') }} | Copyright @ {{ date('Y') }}
+		</footer>
+	</div>
 
 </body>
 </html>

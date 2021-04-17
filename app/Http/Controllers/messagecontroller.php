@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\MenssajeRecive;
+use App\Mail\MessageRecive;
 use Illuminate\Support\Facades\Mail;
 
-class menssagecontroller extends Controller
+class messagecontroller extends Controller
 {
     public function store()
     {
@@ -16,7 +16,7 @@ class menssagecontroller extends Controller
        		'content' => 'required|min:4',
        ]);
 
-       mail::to('juanmanueldiz1@gmail.com')->send(new MenssajeRecive($message));
+       mail::to('juanmanueldiz1@gmail.com')->send(new MessageRecive($message));
 
        return 'mensaje enviado';
     }
